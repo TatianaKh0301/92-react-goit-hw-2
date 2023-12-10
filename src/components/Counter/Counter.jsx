@@ -1,4 +1,5 @@
 import { Component } from "react";
+import Controls from "./Controls";
 
 class Counter extends Component {
     state = {
@@ -21,11 +22,11 @@ class Counter extends Component {
         return(
             <div className="counter">
                 <span className="counter__value">{this.state.value}</span>
-
-                <div className="counter__controls">
+                <Controls onIncrement={this.handleIncrement} onDecrement={this.handleDecrement}/>
+                {/* <div className="counter__controls">
                     <button type="button" onClick={this.handleIncrement}>Increase 1</button>
                     <button type="button" onClick={this.handleDecrement}>Decrease 1</button>
-                </div>
+                </div> */}
             </div>
         );
     }
