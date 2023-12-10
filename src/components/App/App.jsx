@@ -1,10 +1,11 @@
 import { Component } from "react";
+import TodoList from "components/TodoList/TodoList";
 
 
 // import Counter from "components/Counter/Counter";
 // import Dropdown from "components/Dropdown/Dropdown";
-// import ColorPicker from "components/ColorPicker";
-import TodoList from '../TodoList';
+// import ColorPicker from "components/ColorPicker/ColorPicker";
+// import TodoList from '../TodoList';
 
 // const Colorpicker = [
 //     {label: 'red', color: '#F44336'},
@@ -18,11 +19,11 @@ import TodoList from '../TodoList';
 class App extends Component {
     state = {
         todos: [
-            {id: 'td-1', text: 'Learn REACT', completed: false}, 
-            {id: 'td-2', text: 'Learn REACT router', completed: false}, 
-            {id: 'td-3', text: 'Learn REDUX', completed: false}, 
+            {id:'td-1', text: 'Learn React', completed: false},
+            {id:'td-2', text: 'Learn React Router', completed: false},
+            {id:'td-3', text: 'Learn Redux', completed: false},
         ],
-    }
+    }    
 
     render () {
         const {todos} = this.state;
