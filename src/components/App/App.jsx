@@ -19,20 +19,34 @@ import TodoList from "components/TodoList/TodoList";
 class App extends Component {
     state = {
         todos: [
-            {id:'td-1', text: 'Learn React', completed: false},
+            {id:'td-1', text: 'Learn React', completed: true},
             {id:'td-2', text: 'Learn React Router', completed: false},
             {id:'td-3', text: 'Learn Redux', completed: false},
         ],
     }    
 
+    deleteTodo = todoId => {
+        this.setState(prevState => (
+            {todos: prevState.todos.filter(todo => todo.id !== todoId), }
+        ));
+    };
+
     render () {
         const {todos} = this.state;
+        const totalTodoCount = todos.length;
+        const completedTodoCount = todos.reduce(
+            (total, todo) => (todo.completed ? total + 1 : total), 0,
+            );
         return (
             <div>
                 {/* <Counter/> */}
                 {/* <Dropdown /> */}
                 {/* <ColorPicker options={Colorpicker}/> */}
-                <TodoList todos={todos}/>
+                <div>
+                    <p>Total: {totalTodoCount}</p>
+                    <p>Number of completed: {completedTodoCount}</p>
+                </div>
+                <TodoList todos={todos} onDeleteTodo = {this.deleteTodo}/>
             </div>
     );
   }  
