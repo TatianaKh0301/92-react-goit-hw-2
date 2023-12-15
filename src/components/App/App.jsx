@@ -1,5 +1,6 @@
 import { Component } from "react";
 import TodoList from "components/TodoList/TodoList";
+import { Wrapper } from "./App.styled";
 
 
 // import Counter from "components/Counter/Counter";
@@ -23,7 +24,23 @@ class App extends Component {
             {id:'td-2', text: 'Learn React Router', completed: false},
             {id:'td-3', text: 'Learn Redux', completed: false},
         ],
+        name: "",
+        surname: "",
     }    
+
+    handleChange = event => {
+        const { name, value } = event.currentTarget;
+        this.setState({ [name]: value} );
+    };
+    // handleNameChange = event => {
+    //     console.log(event.currentTarget.value);
+    //     this.setState({ name: event.currentTarget.value} );
+    // };
+
+    // handleSurNameChange = event => {
+    //     console.log(event.currentTarget.value);
+    //     this.setState({ surname: event.currentTarget.value} );
+    // };
 
     deleteTodo = todoId => {
         this.setState(prevState => (
@@ -38,16 +55,31 @@ class App extends Component {
             (total, todo) => (todo.completed ? total + 1 : total), 0,
             );
         return (
-            <div>
+            <Wrapper>
                 {/* <Counter/> */}
                 {/* <Dropdown /> */}
                 {/* <ColorPicker options={Colorpicker}/> */}
+                {/* <input 
+                    type="text" 
+                    value={this.state.inputValue} 
+                    onChange={this.handleInputChange}
+                /> */}
+
+                <form>
+                    <label htmlFor="">
+                        Name <input name="name" type="text" value={this.state.name} onChange={this.handleChange} />
+                    </label>
+                </form>
+                <label htmlFor="">
+                        SurName <input name="surname" type="text" value={this.state.surname} onChange={this.handleChange}/>
+                    </label>
+
                 <div>
                     <p>Total: {totalTodoCount}</p>
                     <p>Number of completed: {completedTodoCount}</p>
                 </div>
                 <TodoList todos={todos} onDeleteTodo = {this.deleteTodo}/>
-            </div>
+            </Wrapper>
     );
   }  
 };
