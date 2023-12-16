@@ -48,6 +48,12 @@ class App extends Component {
         ));
     };
 
+    handleSubmit = event => {
+        event.preventDefault();
+
+        console.log(this.state);
+    };
+
     render () {
         const {todos} = this.state;
         const totalTodoCount = todos.length;
@@ -65,14 +71,17 @@ class App extends Component {
                     onChange={this.handleInputChange}
                 /> */}
 
-                <form>
+                <form onSubmit={this.handleSubmit}>
                     <label htmlFor="">
                         Name <input name="name" type="text" value={this.state.name} onChange={this.handleChange} />
                     </label>
-                </form>
-                <label htmlFor="">
+                    <label htmlFor="">
                         SurName <input name="surname" type="text" value={this.state.surname} onChange={this.handleChange}/>
                     </label>
+
+                    <button type="submit">Submit</button>
+                </form>
+                
 
                 <div>
                     <p>Total: {totalTodoCount}</p>
