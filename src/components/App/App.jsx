@@ -1,5 +1,6 @@
 import { Component } from "react";
 import TodoList from "components/TodoList/TodoList";
+import Form from "components/Form/Form";
 import { Wrapper } from "./App.styled";
 
 
@@ -23,15 +24,14 @@ class App extends Component {
             {id:'td-1', text: 'Learn React', completed: true},
             {id:'td-2', text: 'Learn React Router', completed: false},
             {id:'td-3', text: 'Learn Redux', completed: false},
-        ],
-        name: "",
-        surname: "",
+        ],       
     }    
 
-    handleChange = event => {
-        const { name, value } = event.currentTarget;
-        this.setState({ [name]: value} );
-    };
+    formSubmitHandler = data => {
+        console.log(data);
+    }
+
+   
     // handleNameChange = event => {
     //     console.log(event.currentTarget.value);
     //     this.setState({ name: event.currentTarget.value} );
@@ -46,12 +46,6 @@ class App extends Component {
         this.setState(prevState => (
             {todos: prevState.todos.filter(todo => todo.id !== todoId), }
         ));
-    };
-
-    handleSubmit = event => {
-        event.preventDefault();
-
-        console.log(this.state);
     };
 
     render () {
@@ -71,18 +65,8 @@ class App extends Component {
                     onChange={this.handleInputChange}
                 /> */}
 
-                <form onSubmit={this.handleSubmit}>
-                    <label htmlFor="">
-                        Name <input name="name" type="text" value={this.state.name} onChange={this.handleChange} />
-                    </label>
-                    <label htmlFor="">
-                        SurName <input name="surname" type="text" value={this.state.surname} onChange={this.handleChange}/>
-                    </label>
-
-                    <button type="submit">Submit</button>
-                </form>
-                
-
+               
+                <Form onSubmit={this.formSubmitHandler}/>
                 <div>
                     <p>Total: {totalTodoCount}</p>
                     <p>Number of completed: {completedTodoCount}</p>
