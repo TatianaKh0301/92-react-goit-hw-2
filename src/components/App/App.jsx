@@ -2,6 +2,7 @@ import { Component } from "react";
 import shortid from "shortid";
 import TodoList from "components/TodoList/TodoList";
 // import Form from "components/Form/Form";
+import Filter from "components/Filter";
 import TodoEditor from "components/TodoEditor";
 import { Wrapper } from "./App.styled";
 
@@ -64,12 +65,30 @@ class App extends Component {
         ));
     };
 
-    render () {
-        const {todos} = this.state;
-        const totalTodoCount = todos.length;
-        const completedTodoCount = todos.reduce(
+    changeFilter = (event) => {
+        this.setState({filter: event.currentTarget.value});
+    };
+
+    getVisibleTodos = () => {
+        const { filter, todos } = this.state;
+        const normalizedFilter = filter.toLowerCase();
+        return todos.filter(todo => 
+            todo.text.toLowerCase().includes(normalizedFilter), );
+    };
+
+    getCompletedTodoCount = () => {
+        const { todos } = this.state;
+        return (todos.reduce(
             (total, todo) => (todo.completed ? total + 1 : total), 0,
-            );
+            ))
+    }
+
+    render () {
+        const {todos, filter} = this.state;
+        const totalTodoCount = todos.length;
+        const completedTodoCount = this.getCompletedTodoCount();
+        const visibleTodos = this.getVisibleTodos();
+        
         return (
             <Wrapper>
                 {/* <Counter/> */}
@@ -83,17 +102,13 @@ class App extends Component {
 
                
                 {/* <Form onSubmit={this.formSubmitHandler}/> */}
-                <label> Filter by name
-                    <input type="text" value={this.state.filter} />
-                </label>
+                <Filter value={filter} onChange={this.changeFilter}/>
                 <TodoEditor onSubmit={this.addTodo} />
                 <div>
                     <p>Total: {totalTodoCount}</p>
                     <p>Number of completed: {completedTodoCount}</p>
                 </div>
-                <TodoList todos={todos} onDeleteTodo = {this.deleteTodo}/>
-                
-               
+                <TodoList todos = { visibleTodos } onDeleteTodo = {this.deleteTodo}/>
             </Wrapper>
     );
   }  
