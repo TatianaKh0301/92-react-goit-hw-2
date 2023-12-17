@@ -1,4 +1,5 @@
 import { Component } from "react";
+import shortid from "shortid";
 import TodoList from "components/TodoList/TodoList";
 // import Form from "components/Form/Form";
 import TodoEditor from "components/TodoEditor";
@@ -25,7 +26,8 @@ class App extends Component {
             {id:'td-1', text: 'Learn React', completed: true},
             {id:'td-2', text: 'Learn React Router', completed: false},
             {id:'td-3', text: 'Learn Redux', completed: false},
-        ],       
+        ],
+        filter:'',       
     }    
 
     formSubmitHandler = data => {
@@ -42,6 +44,19 @@ class App extends Component {
     //     console.log(event.currentTarget.value);
     //     this.setState({ surname: event.currentTarget.value} );
     // };
+
+    addTodo = text => {
+        console.log(text);
+        const todo = {
+            id: shortid.generate(),
+            text,
+            completed: false,
+        }
+
+        this.setState(({todos}) => ({
+            todos: [todo, ...todos],
+        }));
+    }
 
     deleteTodo = todoId => {
         this.setState(prevState => (
@@ -68,7 +83,10 @@ class App extends Component {
 
                
                 {/* <Form onSubmit={this.formSubmitHandler}/> */}
-                <TodoEditor />
+                <label> Filter by name
+                    <input type="text" value={this.state.filter} />
+                </label>
+                <TodoEditor onSubmit={this.addTodo} />
                 <div>
                     <p>Total: {totalTodoCount}</p>
                     <p>Number of completed: {completedTodoCount}</p>
