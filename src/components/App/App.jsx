@@ -1,6 +1,7 @@
 import { Component } from "react";
 import TodoList from "components/TodoList/TodoList";
-import Form from "components/Form/Form";
+// import Form from "components/Form/Form";
+import TodoEditor from "components/TodoEditor";
 import { Wrapper } from "./App.styled";
 
 
@@ -66,12 +67,15 @@ class App extends Component {
                 /> */}
 
                
-                <Form onSubmit={this.formSubmitHandler}/>
+                {/* <Form onSubmit={this.formSubmitHandler}/> */}
+                <TodoEditor />
                 <div>
                     <p>Total: {totalTodoCount}</p>
                     <p>Number of completed: {completedTodoCount}</p>
                 </div>
                 <TodoList todos={todos} onDeleteTodo = {this.deleteTodo}/>
+                
+               
             </Wrapper>
     );
   }  
